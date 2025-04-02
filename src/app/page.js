@@ -1,30 +1,38 @@
-import Link from "next/link";
+"use client"; // Nécessaire car on utilise useState et useEffect
+
+import { useEffect, useState } from "react";
+import BookService from "@/services/book-services";
+import BookCard from "@/components/books/book-card";
 
 export default function Home() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        const data = await BookService.getBooks();
+        setBooks(data); // Met à jour l'état avec les livres
+      } catch (error) {
+        console.error("Erreur lors de la récupération des livres :", error);
+      }
+    }
+
+    fetchBooks();
+  }, []);
+
   return (
     <main className="flex flex-col items-center justify-between p-6 md:p-24">
-      <div className="max-w-5xl w-full space-y-8 text-center">
-        <h1>
-          Bienvenue sur BookMarket
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Votre bibliothèque en ligne pour découvrir, acheter et gérer vos livres préférés
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Link
-            href="/books"
-            className="px-6 py-3 text-lg font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            Parcourir les livres
-          </Link>
-          <Link
-            href="/register"
-            className="px-6 py-3 text-lg font-medium rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80"
-          >
-            Créer un compte
-          </Link>
+      <h1 className="mb-8">Bienvenue sur BookMarket</h1>
+
+      {books.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {books.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
         </div>
-      </div>
+      ) : (
+        <p>Aucun livre trouvé.</p>
+      )}
     </main>
   );
 }

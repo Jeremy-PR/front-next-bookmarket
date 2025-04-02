@@ -10,7 +10,7 @@ export default function BookCard({ book }) {
       <Card className="overflow-hidden h-full transition-all hover:shadow-md">
         <div className="aspect-[2/3] relative overflow-hidden">
           <Image
-            src={book.coverImage || "/images/placeholder-book.jpg"}
+            src={book.coverImage || "/images/placeholder-book.png"}
             alt={book.title}
             fill
             className="object-cover"
@@ -29,13 +29,14 @@ export default function BookCard({ book }) {
             ))}
           </div>
           <p className="text-sm line-clamp-2 text-muted-foreground">
-            {book.description}
+            {/* {book.description} */}
+            Un jeune hobbit, Frodon Sacquet, hérite d'un anneau. Mais ce n'est pas un anneau ordinaire, c'est l'Anneau Unique, instrument du pouvoir du Seigneur des Ténèbres Sauron.
           </p>
         </CardContent>
         <CardFooter className="p-4 pt-0 flex justify-between items-center">
-          <p className="font-bold text-primary">{formatPrice(book.price)}</p>
-          <Badge variant="outline" className={book.stock > 0 ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100" : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"}>
-            {book.stock > 0 ? "En stock" : "Épuisé"}
+          <p className="font-bold text-primary">{formatPrice(29.99)}</p>
+          <Badge variant="outline" className={15 > 0 ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100" : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"}>
+            {15 > 0 ? "En stock" : "Épuisé"}
           </Badge>
         </CardFooter>
       </Card>

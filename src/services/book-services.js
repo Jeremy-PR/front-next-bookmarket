@@ -33,7 +33,8 @@ export const BookService = {
   getBooks: async () => {
     try {
       const response = await api.get("/books");
-      return response.data["hydra:member"]; // Si API Platform, sinon response.data directement
+      return response.data["member"]; 
+      // Si API Platform, sinon response.data directement
     } catch (error) {
       throw error.response?.data || { message: "Erreur lors de la récupération des livres" };
     }
